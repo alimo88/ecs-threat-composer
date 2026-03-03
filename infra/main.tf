@@ -12,7 +12,7 @@ module "sg" {
 
 module "ecr" {
   source          = "./modules/ecr"
-  repository_name = "threat-composer-image"
+  repository_name = "ecs-threat"
 }
 
 module "alb" {

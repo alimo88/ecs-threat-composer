@@ -15,7 +15,7 @@ variable "aws_region" {
 
 variable "image_tag" {
   type    = string
-  default = "9f086d5"
+  default = "latest"
 }
 
 variable "domain_name" {
