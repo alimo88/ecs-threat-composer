@@ -29,9 +29,9 @@ module "alb" {
 
 module "ecs" {
   source = "./modules/ecs"
-  
 
-  container_image = "${module.ecr.repository_url}:${var.image_tag}"
+
+  container_image       = "${module.ecr.repository_url}:${var.image_tag}"
   container_port        = 80
   service_desired_count = 2
   task_cpu              = 256
