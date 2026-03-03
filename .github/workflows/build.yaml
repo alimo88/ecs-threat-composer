@@ -7,6 +7,7 @@ on:
       - "app/**"
       - "Dockerfile"
       - "nginx.conf"
+      - "infra/**"
       - ".github/workflows/build.yaml"
   workflow_dispatch: {}
 
@@ -47,6 +48,7 @@ jobs:
           push: true
           tags: |
             ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:${{ github.sha }}
+            ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
