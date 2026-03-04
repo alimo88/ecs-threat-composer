@@ -1,89 +1,91 @@
-ECS Threat Composer Deployment
+# ECS Threat Composer Deployment
 
-This project demonstrates a production-style container deployment on AWS ECS Fargate using Docker, Terraform, and GitHub Actions CI/CD.
+This project demonstrates a production-style container deployment on **AWS ECS Fargate** using **Docker, Terraform, and GitHub Actions CI/CD**.
 
-The application is deployed behind an Application Load Balancer with HTTPS, uses Amazon ECR for container images, and is fully provisioned with Infrastructure as Code (Terraform).
+The application is deployed behind an **Application Load Balancer with HTTPS**, uses **Amazon ECR for container images**, and is fully provisioned with **Infrastructure as Code (Terraform)**.
 
-The final application is accessible through a custom domain using Route53 and ACM TLS certificates.
+The final application is accessible through a custom domain using **Route53 and AWS Certificate Manager (ACM)**.
 
-Overview
+---
+
+# Overview
 
 This project focuses on the following DevOps practices:
 
-Containerising a web application using Docker
+- Containerising a web application using Docker
+- Infrastructure provisioning using Terraform
+- CI/CD pipelines using GitHub Actions
+- Secure authentication to AWS using OIDC (no static credentials)
+- HTTPS configuration using AWS Certificate Manager
+- Automated deployments to AWS ECS Fargate
 
-Infrastructure provisioning using Terraform
+The goal is to demonstrate a **fully automated deployment pipeline for a containerised application on AWS**.
 
-CI/CD pipelines using GitHub Actions
+---
 
-Secure authentication to AWS using OIDC (no static credentials)
+# Architecture
 
-HTTPS configuration using AWS Certificate Manager
+The infrastructure is deployed in AWS using a **highly available VPC architecture across two Availability Zones**.
 
-Automated deployments to AWS ECS Fargate
+The application runs on **ECS Fargate in private subnets**, while traffic is routed through an **Application Load Balancer in public subnets**.
 
-The goal is to demonstrate a fully automated deployment pipeline for a containerised application on AWS.
+User requests are routed through **Route53 DNS** and secured using **HTTPS with ACM certificates**.
 
-Architecture
+---
 
-The infrastructure is deployed in AWS using a highly available VPC architecture across two Availability Zones.
+# Architecture Diagram
 
-The application runs on ECS Fargate in private subnets, while traffic is routed through an Application Load Balancer in public subnets.
+*(Insert your Draw.io architecture diagram here)*
 
-User requests are routed through Route53 DNS and secured using HTTPS with ACM certificates.
+---
 
-Architecture Diagram
-
-(Insert your Draw.io diagram here)
+# Repository Structure
 
 
-Repository Structure
 .
-├── app/                     # Application source
+├── app/ # Application source code
 │
-├── Dockerfile               # Container image definition
-├── nginx.conf               # Nginx configuration
+├── Dockerfile # Container image definition
+├── nginx.conf # Nginx configuration
 │
-├── infra/                   # Terraform infrastructure
-│   ├── backend.tf
-│   ├── main.tf
-│   ├── variables.tf
-│   └── modules/
-│       ├── vpc/
-│       ├── security/
-│       ├── alb/
-│       ├── ecs/
-│       └── ecr/
+├── infra/ # Terraform infrastructure
+│ ├── backend.tf
+│ ├── main.tf
+│ ├── variables.tf
+│ └── modules/
+│ ├── vpc/
+│ ├── security/
+│ ├── alb/
+│ ├── ecs/
+│ └── ecr/
 │
-├── .github/workflows/       # CI/CD pipelines
-│   ├── build.yaml
-│   └── deploy.yaml
+├── .github/workflows/ # CI/CD pipelines
+│ ├── build.yaml
+│ └── deploy.yaml
 │
 ├── README.md
 └── .gitignore
 
-Containerisation
 
-The application is packaged into a Docker container.
+---
 
-The container is built using a multi-stage Docker build:
+# Containerisation
 
-Node.js builds the frontend application
+The application is packaged into a **Docker container**.
 
-Nginx serves the static build output
+The container is built using a **multi-stage Docker build**:
 
-Example build:
+1. Node.js builds the frontend application  
+2. Nginx serves the static build output
 
+### Build locally
+
+```bash
 docker build -t threat-composer .
-
-Run locally:
-
+Run locally
 docker run -p 8080:80 threat-composer
-
-Verify:
-
+Verify
 curl http://localhost:8080
-
 Image Registry (Amazon ECR)
 
 Container images are stored in Amazon Elastic Container Registry (ECR).
@@ -98,7 +100,11 @@ Pushes it to ECR
 
 Example image tag:
 
-<account-id>.dkr.ecr.<region>.amazonaws.com/ecs-threat:sha
+<account-id>.dkr.ecr.<region>.amazonaws.com/ecs-threat:<commit-sha>
+
+Example for this project:
+
+<account-id>.dkr.ecr.eu-west-2.amazonaws.com/ecs-threat:<commit-sha>
 Infrastructure as Code (Terraform)
 
 Infrastructure is provisioned using Terraform modules.
@@ -127,14 +133,11 @@ Route53 DNS Record
 
 ACM TLS Certificate
 
-Terraform commands used:
-
+Terraform commands
 terraform init
 terraform plan
 terraform apply
-
-To destroy infrastructure:
-
+Destroy infrastructure
 terraform destroy
 CI/CD Automation (GitHub Actions)
 
@@ -154,9 +157,7 @@ Authenticate to AWS using OIDC
 
 Push container image to Amazon ECR
 
-Screenshot:
-
-(Insert GitHub Actions screenshot)
+(Insert GitHub Actions build pipeline screenshot)
 
 Terraform Deploy Pipeline
 
@@ -182,9 +183,7 @@ curl https://tm.<your-domain>/health
 
 If the endpoint is unhealthy, the pipeline fails.
 
-Screenshot:
-
-(Insert Terraform pipeline screenshot)
+(Insert Terraform deployment screenshot)
 
 HTTPS and Domain
 
@@ -206,17 +205,14 @@ https://tm.<your-domain>
 
 Example:
 
-https://tm.example.com
-
+https://tm.ali-m.org
 Live Deployment
 
 The deployed application can be accessed at:
 
 https://tm.<your-domain>
 
-Screenshot:
-
-(Insert application running screenshot)
+(Insert screenshot of running application)
 
 How to Reproduce
 Requirements
@@ -231,26 +227,26 @@ GitHub account
 
 Domain configured in Route53
 
-1. Clone Repository
-git clone https://github.com/<your-repo>.git
+Clone Repository
+git clone https://github.com/<your-username>/ecs-threat-composer.git
 cd ecs-threat-composer
-2. Configure AWS
+Configure AWS
 
 Ensure AWS CLI is configured.
 
 aws sts get-caller-identity
-3. Deploy Infrastructure
+Deploy Infrastructure
 cd infra
 terraform init
 terraform apply
-4. Build Container
+Build Container
 docker build -t threat-composer .
-5. Push to ECR
+Push to ECR
 
 Authenticate Docker:
 
-aws ecr get-login-password --region <region> \
-| docker login --username AWS --password-stdin <account-id>.dkr.ecr.<region>.amazonaws.com
+aws ecr get-login-password --region eu-west-2 \
+| docker login --username AWS --password-stdin <account-id>.dkr.ecr.eu-west-2.amazonaws.com
 
 Push image:
 
@@ -302,5 +298,3 @@ Docker
 GitHub Actions
 
 Nginx
-
-
