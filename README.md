@@ -167,7 +167,7 @@ Steps:
 3. Authenticate to AWS using **OIDC**  
 4. Push container image to **Amazon ECR**
 
-![alt text](image.png)
+![Build Pipeline](images/build_cicd.png)
 
 ---
 
@@ -192,7 +192,7 @@ curl https://tm.<your-domain>/health
 
 If the endpoint is unhealthy, the pipeline fails.
 
-![alt text](image-1.png)
+![Terraform Deploy Pipeline](images/terraform_cicd.png)
 
 ---
 
@@ -230,7 +230,7 @@ The deployed application can be accessed at:
 https://tm.<your-domain>
 ```
 
-![alt text](image.png)
+![Live Deployment](images/domain_page.png)
 
 ---
 
