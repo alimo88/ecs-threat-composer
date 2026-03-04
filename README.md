@@ -37,34 +37,6 @@ User requests are routed through **Route53 DNS** and secured using **HTTPS with 
 
 *(Insert your Draw.io architecture diagram here)*
 
-Example architecture flow:
-
-```
-User
-  │
-  ▼
-Route53 (DNS)
-  │
-  ▼
-Application Load Balancer (HTTPS via ACM)
-  │
-  ▼
-Target Group
-  │
-  ▼
-ECS Fargate Service
-  │
-  ▼
-Container (Nginx serving Threat Composer)
-```
-
-Additional components:
-
-- Amazon ECR (container registry)
-- GitHub Actions (CI/CD pipelines)
-- Terraform (infrastructure provisioning)
-- NAT Gateway (private subnet outbound access)
-
 ---
 
 # Repository Structure
