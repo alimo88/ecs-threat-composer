@@ -43,12 +43,12 @@ User requests are routed through **Route53 DNS** and secured using **HTTPS with 
 
 ```
 .
-├── app/                     # Application source
+├── app/                     
 │
-├── Dockerfile               # Container image definition
-├── nginx.conf               # Nginx configuration
+├── Dockerfile               
+├── nginx.conf               
 │
-├── infra/                   # Terraform infrastructure
+├── infra/                   
 │   ├── backend.tf
 │   ├── main.tf
 │   ├── variables.tf
@@ -59,7 +59,7 @@ User requests are routed through **Route53 DNS** and secured using **HTTPS with 
 │       ├── ecs/
 │       └── ecr/
 │
-├── .github/workflows/       # CI/CD pipelines
+├── .github/workflows/       
 │   ├── build.yaml
 │   └── deploy.yaml
 │
