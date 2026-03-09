@@ -324,15 +324,3 @@ Possible enhancements include:
 - Secrets management using AWS Secrets Manager
 
 ---
-
-# Technologies Used
-
-- AWS ECS Fargate
-- AWS ECR
-- AWS Route53
-- AWS ACM
-- AWS ALB
-- Terraform
-- Docker
-- GitHub Actions
-- Nginx
