@@ -35,7 +35,7 @@ User requests are routed through **Route53 DNS** and secured using **HTTPS with 
 
 # Architecture Diagram
 
-*(Insert your Draw.io architecture diagram here)*
+ecs-threat-composer/images/Architecture_Diagram.png
 
 ---
 
