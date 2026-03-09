@@ -35,7 +35,7 @@ User requests are routed through **Route53 DNS** and secured using **HTTPS with 
 
 # Architecture Diagram
 
-ecs-threat-composer/images/Architecture_Diagram.png
+![Architecture Diagram](images/Architecture_Diagram.png)
 
 ---
 
